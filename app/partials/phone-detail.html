@@ -1,0 +1,121 @@
+<div class="phone-detail">
+  <img ng-src="{{mainImageUrl}}" class="phone">
+
+  <a ng-click="save()">Save</a>
+  <a ng-click="delete()">Delete</a>
+
+  <h1>{{phone.name}}</h1>
+  <p>
+  
+    <div contenteditable="true" ng-model="phone.description">
+      {{phone.description}}
+    </div> 
+  </p>
+
+  <ul class="phone-thumbs">
+    <li ng-repeat="img in phone.images">
+      <img ng-src="{{img}}" ng-click="setImage(img)">
+    </li>
+  </ul>
+  <ul class="specs">
+    <li>
+      <span>Availability and Networks</span>
+      <dl>
+        <dt ng-click="addAvailability()" title="click to add">Availability (click to add)</dt>
+        <dd ng-repeat="av in phone.availability"><span contenteditable="true" ng-model="av.operator"></span></dd>
+      </dl>
+    </li>
+    <li>
+      <span>Battery</span>
+      <dl>
+        <dt>Type</dt>
+        <dd contenteditable="true" ng-model="phone.battery.type">{{phone.battery.type}}</dd>
+        <dt>Talk Time</dt>
+        <dd contenteditable="true" ng-model="phone.battery.talkTime">{{phone.battery.talkTime}}</dd>
+        <dt>Standby time (max)</dt>
+        <dd contenteditable="true" ng-model="phone.battery.standbyTime">{{phone.battery.standbyTime}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Storage and Memory</span>
+      <dl>
+        <dt>RAM</dt>
+        <dd  contenteditable="true" ng-model="phone.storage.ram">{{phone.storage.ram}}</dd>
+        <dt>Internal Storage</dt>
+        <dd  contenteditable="true" ng-model="phone.storage.flash">{{phone.storage.flash}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Connectivity</span>
+      <dl>
+        <dt>Network Support</dt>
+        <dd  contenteditable="true" ng-model="phone.connectivity.cell">{{phone.connectivity.cell}}</dd>
+        <dt>WiFi</dt>
+        <dd  contenteditable="true" ng-model="phone.connectivity.wifi">{{phone.connectivity.wifi}}</dd>
+        <dt>Bluetooth</dt>
+        <dd  contenteditable="true" ng-model="phone.connectivity.bluetooth">{{phone.connectivity.bluetooth}}</dd>
+        <dt>Infrared</dt>
+        <dd  contenteditable="true" ng-model="phone.connectivity.infrared">{{phone.connectivity.infrared | checkmark}}</dd>
+        <dt>GPS</dt>
+        <dd  contenteditable="true" ng-model="phone.connectivity.gps">{{phone.connectivity.gps | checkmark}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Android</span>
+      <dl>
+        <dt>OS Version</dt>
+        <dd  contenteditable="true" ng-model="phone.android.os">{{phone.android.os}}</dd>
+        <dt>UI</dt>
+        <dd  contenteditable="true" ng-model="phone.android.ui">{{phone.android.ui}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Size and Weigth</span>
+      <dl>
+        <dt ng-click="addDimension()">Dimensions (click to add)</dt>
+        <dd ng-repeat="dim in phone.sizeAndWeight.dimensions"><span contenteditable="true" ng-model="dim.dimension"></span></dd>
+        <dt>Weight</dt>
+        <dd  contenteditable="true" ng-model="phone.sizeAndWeight.weight">{{phone.sizeAndWeight.weight}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Display</span>
+      <dl>
+        <dt>Screen size</dt>
+        <dd  contenteditable="true" ng-model="phone.display.screenSize">{{phone.display.screenSize}}</dd>
+        <dt>Screen resolution</dt>
+        <dd  contenteditable="true" ng-model="phone.display.screenResolution">{{phone.display.screenResolution}}</dd>
+        <dt>Touch screen</dt>
+        <dd  contenteditable="true" ng-model="phone.display.touchScreen">{{phone.display.touchScreen | checkmark}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Hardware</span>
+      <dl>
+        <dt>CPU</dt>
+        <dd contenteditable="true" ng-model="phone.hardware.cpu">{{phone.hardware.cpu}}</dd>
+        <dt>USB</dt>
+        <dd contenteditable="true" ng-model="phone.hardware.usb">{{phone.hardware.usb}}</dd>
+        <dt>Audio / headphone jack</dt>
+        <dd contenteditable="true" ng-model="phone.hardware.audioJack">{{phone.hardware.audioJack}}</dd>
+        <dt>FM Radio</dt>
+        <dd contenteditable="true" ng-model="phone.hardware.fmRadio">{{phone.hardware.fmRadio | checkmark}}</dd>
+        <dt>Accelerometer</dt>
+        <dd contenteditable="true" ng-model="phone.hardware.accelerometer">{{phone.hardware.accelerometer | checkmark}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Camera</span>
+      <dl>
+        <dt>Primary</dt>
+        <dd contenteditable="true" ng-model="phone.camera.primary">{{phone.camera.primary}}</dd>
+        <dt>Features</dt>
+        <dd contenteditable="true" ng-model="phone.camera.features">{{phone.camera.features.join(', ')}}</dd>
+      </dl>
+    </li>
+    <li>
+      <span>Additional Features</span>
+      <dd contenteditable="true" ng-model="phone.additionalFeatures">{{phone.additionalFeatures}}</dd>
+    </li>
+  </ul>
+</div>
