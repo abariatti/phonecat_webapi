@@ -11,7 +11,7 @@ function PhoneListCtrl($scope, $http, phoneapi) {
 
 //PhoneListCtrl.$inject = ['$scope', 'Phone'];
 
-function PhoneDetailCtrl($scope, $http, $routeParams, phoneapi) {
+function PhoneDetailCtrl($scope, $http, $routeParams, $location, phoneapi) {
   
   $http.defaults.useXDomain = true; // Allow CORS
 
@@ -38,6 +38,7 @@ function PhoneDetailCtrl($scope, $http, $routeParams, phoneapi) {
   $scope.delete = function(){
     console.log($scope.phone);
     $scope.phone.$delete();
+    $location.path('/phones');
   }
 
   $scope.watchCallback = function(modelName) {
