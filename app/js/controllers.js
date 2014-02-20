@@ -15,7 +15,11 @@ function PhoneDetailCtrl($scope, $http, $routeParams, $location, phoneapi) {
   
   $http.defaults.useXDomain = true; // Allow CORS
 
-  bind();
+  $scope.phone = phoneapi.get({phoneId: $routeParams.phoneId}, function(phone) {
+      console.log($routeParams.phoneId);
+      console.log(phone);
+      $scope.mainImageUrl = phone.images[0];
+    });   
 
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
@@ -24,7 +28,6 @@ function PhoneDetailCtrl($scope, $http, $routeParams, $location, phoneapi) {
   $scope.save = function(){
     console.log($scope.phone);
     $scope.phone.$save();
-    bind();
   }
 
   $scope.addAvailability = function() {
@@ -44,14 +47,6 @@ function PhoneDetailCtrl($scope, $http, $routeParams, $location, phoneapi) {
   $scope.watchCallback = function(modelName) {
         console.log(modelName+" was changed");
   };
-
-  function bind(){
-    $scope.phone = phoneapi.get({phoneId: $routeParams.phoneId}, function(phone) {
-      console.log($routeParams.phoneId);
-      console.log(phone);
-      $scope.mainImageUrl = phone.images[0];
-    });    
-  } 
 }
 
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];

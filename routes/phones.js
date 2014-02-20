@@ -61,16 +61,16 @@ exports.savePhone = function(req, res) {
 
 exports.updatePhone = function(req, res) {
     var phone = req.body;
-    var id = req.params.id
+    var id = req.params.id;
+    phone._id = new ObjectID(id);
     console.log('Update phone : ' + id);
-    delete phone._id;
     db.collection('phones', function(err, collection) {
-        collection.update({'_id':new ObjectID(id)}, phone, {safe:true}, function(err, result) {
-            if (err) {
-                console.log('Error updating phone: ' + err);
+        collection.save(phone,{safe:true}, function(err,result){
+             if (err) {
+                console.log('Error saving phone: ' + err);
                 res.send({'error':'An error has occurred'});
             } else {
-                console.log('' + result + ' document(s) saved');
+                console.log(result + ' document(s) saved');
                 res.send(phone);
             }
         });
