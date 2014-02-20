@@ -16,9 +16,8 @@ To run it you need
 Start the application
 ---------------------
 
-node web-server.js
-go to localhost:3000/ to browse the application
-go to localhost:3000/phones to reach the api
+verify mongodb runs
+run node web-server.js from the working directory
 
 remarks
 -------
