@@ -1,95 +1,78 @@
-var mongo = require('mongodb');
- 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var cradle = require('cradle');
+var c = new(cradle.Connection);
+var db = c.database('phones');
 
-var ObjectID = require('mongodb').ObjectID;
- 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('phonedb', server);
- 
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'phonedb' database");
-        db.collection('phones', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'phones' collection doesn't exist. Creating it with sample data...");
-                populateDB();
-            }
-        });
-    }else{
-        console.log("Error connecting to 'phonedb' database" );
-        console.log(err);
+db.exists(function (err, exists) {
+    if (err) {
+      console.log('error', err);
+    } else if (exists) {
+      console.log('phones db exists');
+    } else {
+        console.log('phones db does not exists. creating');
+        db.create();
+        console.log('populating phones db');
+        populateDB();
     }
-});
+  });
  
 exports.findById = function(req, res) {
     var id = req.params.id;
-    console.log('Retrieving phone: ' + id);
-    db.collection('phones', function(err, collection) {
-        collection.findOne({'_id': new ObjectID(id)}, function(err, item) {
-            res.send(item);
-        });
+    db.get(id,function(err,result){
+        res.send(result);
     });
 };
  
 exports.findAll = function(req, res) {
-    console.log('Retrieving all phones');
-    db.collection('phones', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(items);
+    var allphones = [];
+    db.view('phones/all', function (err, result) {
+        result.forEach(function (row) {
+          allphones.push(row.key);
         });
+        res.send(allphones);
     });
 };
 
 exports.savePhone = function(req, res) {
     var phone = req.body;
-    console.log('Insert phone: ' + phone.name);
-    db.collection('phones', function(err, collection) {
-        collection.insert( phone, {safe:true}, function(err, result) {
-            if (err) {
-                console.log('Error saving phone: ' + err);
-                res.send({'error':'An error has occurred'});
-            } else {
-                console.log('document(s) saved');
-                res.send(result);
-            }
-        });
-    });
+    //console.log('Insert phone: ' + phone.name);
+    db.save(phone, function (err, result) {
+        console.log(result);
+    })
 };
 
 exports.updatePhone = function(req, res) {
     var phone = req.body;
-    var id = req.params.id;
-    phone._id = new ObjectID(id);
+    var id = req.params.id    
     console.log('Update phone : ' + id);
-    db.collection('phones', function(err, collection) {
-        collection.save(phone,{safe:true}, function(err,result){
-             if (err) {
-                console.log('Error saving phone: ' + err);
-                res.send({'error':'An error has occurred'});
-            } else {
-                console.log(result + ' document(s) saved');
-                res.send(phone);
-            }
-        });
+    db.merge(id, phone, function (err,result) {
+        res.send(phone);
     });
 };
 
 exports.deletePhone = function(req, res) {
     var id = req.params.id;
     console.log('Deleting phone: ' + id);
-    db.collection('phones', function(err, collection) {
-        collection.remove({'_id': new ObjectID(id)}, {safe:true}, function(err, result) {
-            if (err) {
-                res.send({'error':'An error has occurred - ' + err});
-            } else {
-                console.log('' + result + ' document(s) deleted');
-                res.send(req.body);
-            }
-        });
+
+    db.remove(id, null, function (err, result) {
+        // Handle response
+        if (err) {
+            res.send({'error':'An error has occurred - ' + err});
+        } else {
+            console.log('' + result + ' document(s) deleted');
+        }   
     });
+    // var id = req.params.id;
+    // console.log('Deleting phone: ' + id);
+    // db.collection('phones', function(err, collection) {
+    //     collection.remove({'_id': new ObjectID(id)}, {safe:true}, function(err, result) {
+    //         if (err) {
+    //             res.send({'error':'An error has occurred - ' + err});
+    //         } else {
+    //             console.log('' + result + ' document(s) deleted');
+    //             res.send(req.body);
+    //         }
+    //     });
+    // });
 };
  
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -1410,9 +1393,20 @@ var populateDB = function() {
         }
     }
     ];
- 
-    db.collection('phones', function(err, collection) {
-        collection.insert(phones, {safe:true}, function(err, result) {});
+    
+    db.save(phones, function (err, res) {
+        // Handle response
+        console.log(res)
     });
- 
+    
+    db.save('_design/phones', {
+      all: {
+          map: function (doc) {
+              if (doc.name) {
+                emit(doc,null);
+              }   
+          }
+      },
+    });
+
 };

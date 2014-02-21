@@ -16,8 +16,7 @@ function PhoneDetailCtrl($scope, $http, $routeParams, $location, phoneapi) {
   $http.defaults.useXDomain = true; // Allow CORS
 
   $scope.phone = phoneapi.get({phoneId: $routeParams.phoneId}, function(phone) {
-      console.log($routeParams.phoneId);
-      console.log(phone);
+      //console.log(phone);
       $scope.mainImageUrl = phone.images[0];
     });   
 
