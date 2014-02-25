@@ -1,9 +1,24 @@
 {
-    "name": "wine-cellar",
-    "description": "Wine Cellar Application",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "express": "3.x"
-    }
+  "name": "phonecat_webapi",
+  "description": "Phone Gallery based on Google's Phonecat tutorial",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "cradle": "~0.6.7"
+  },
+  "main": "script.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abariatti/phonecat_webapi"
+  },
+  "author": "Arnaud Bariatti",
+  "bugs": {
+    "url": "https://github.com/abariatti/phonecat_webapi/issues"
+  },
+  "homepage": "https://github.com/abariatti/phonecat_webapi"
 }
