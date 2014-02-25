@@ -33,9 +33,19 @@ function PhoneDetailCtrl($scope, $http, $routeParams, $location, phoneapi) {
         $scope.phone.availability.push({"operator":"new ..."});
   };
 
+  $scope.delAvailability = function(item) {
+         var index = $scope.phone.availability.indexOf(item);
+         $scope.phone.availability.splice(index, 1);
+  }
+
   $scope.addDimension = function() {
         $scope.phone.sizeAndWeight.dimensions.push({"dimension":"new ..."});
   };
+
+  $scope.delDimension = function(item) {
+         var index = $scope.phone.sizeAndWeight.dimensions.indexOf(item);
+         $scope.phone.sizeAndWeight.dimensions.splice(index, 1);
+  }
 
   $scope.delete = function(){
     console.log($scope.phone);

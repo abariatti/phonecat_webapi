@@ -22,7 +22,10 @@
       <span>Availability and Networks</span>
       <dl>
         <dt ng-click="addAvailability()" title="click to add">Availability (click to add)</dt>
-        <dd ng-repeat="av in phone.availability"><span contenteditable="true" ng-model="av.operator"></span></dd>
+        <dd ng-repeat="av in phone.availability">
+          <a ng-click="delAvailability(av)">x</a>
+          <span contenteditable="true" ng-model="av.operator"><</span>
+        </dd>
       </dl>
     </li>
     <li>
@@ -73,7 +76,10 @@
       <span>Size and Weigth</span>
       <dl>
         <dt ng-click="addDimension()">Dimensions (click to add)</dt>
-        <dd ng-repeat="dim in phone.sizeAndWeight.dimensions"><span contenteditable="true" ng-model="dim.dimension"></span></dd>
+        <dd ng-repeat="dim in phone.sizeAndWeight.dimensions">
+          <a ng-click="delDimension(dim)">x</a>
+          <span contenteditable="true" ng-model="dim.dimension"></span>
+        </dd>
         <dt>Weight</dt>
         <dd  contenteditable="true" ng-model="phone.sizeAndWeight.weight">{{phone.sizeAndWeight.weight}}</dd>
       </dl>
