@@ -1,5 +1,5 @@
 var express = require('express'),
-	  phone = require('./routes/phones.js'),
+	phone = require('./routes/phones.js'),
     path  = require('path');
 
 var app = express();
@@ -23,14 +23,19 @@ app.use(express.static(path.join(__dirname, 'app')));
 app.configure(function () {
 	app.use(allowCrossDomain);
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
-    app.use(express.bodyParser());
+    app.use(express.bodyParser({uploadDir:'./tmp', keepExtensions: true}));
 });
 
+app.post('/phones/upload', phone.imageUpload); // uploading photos
 app.get('/phones', phone.findAll);
 app.get('/phones/:id', phone.findById);
 app.post('/phones', phone.savePhone); // adding 
 app.post('/phones/:id', phone.updatePhone); // updating 
 app.delete('/phones/:id', phone.deletePhone);
+
+
+
+
 
 app.listen(3000);
 console.log('Listening on port 3000...');
