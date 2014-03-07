@@ -46,6 +46,16 @@ ul.phone-thumbs li {
   background-color: white;
 }
 
+ul.phone-thumbs li.image-upload {
+  border: 1px dotted black;
+}
+
+ul.phone-thumbs li div {
+  width:100px; 
+  height:100px; 
+  margin:1em;
+}
+
 ul.phone-thumbs img {
   height: 100px;
   width: 100px;
