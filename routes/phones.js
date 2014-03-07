@@ -1,6 +1,7 @@
 var cradle = require('cradle');
 var c = new(cradle.Connection);
 var db = c.database('phones');
+var fs = require('fs');
 
 db.exists(function (err, exists) {
     if (err) {
@@ -14,6 +15,28 @@ db.exists(function (err, exists) {
         populateDB();
     }
   });
+
+exports.imageUpload = function(req,res)
+{
+    console.log('imageUpload');
+    console.log(JSON.stringify(req.files));
+
+    var image = req.files.file;
+    var moveTo = 'C:\\Users\\arnaud.bariatti\\Google Drive\\Code Library\\github\\phonecat_webapi\\app\\img\\phones\\' + image.name;
+    fs.rename(
+        image.path,
+        moveTo,
+        function(error) {
+            if(error) {
+                res.send({
+                    error: error
+                });
+                return;
+            }
+            res.send({ path: moveTo });
+        }
+    );
+}
  
 exports.findById = function(req, res) {
     var id = req.params.id;
@@ -61,18 +84,6 @@ exports.deletePhone = function(req, res) {
             console.log('' + result + ' document(s) deleted');
         }   
     });
-    // var id = req.params.id;
-    // console.log('Deleting phone: ' + id);
-    // db.collection('phones', function(err, collection) {
-    //     collection.remove({'_id': new ObjectID(id)}, {safe:true}, function(err, result) {
-    //         if (err) {
-    //             res.send({'error':'An error has occurred - ' + err});
-    //         } else {
-    //             console.log('' + result + ' document(s) deleted');
-    //             res.send(req.body);
-    //         }
-    //     });
-    // });
 };
  
 /*--------------------------------------------------------------------------------------------------------------------*/
