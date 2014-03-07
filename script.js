@@ -1,1 +1,0 @@
-db.phones.find({name:/Samsung.*/})

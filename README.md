@@ -1,11 +1,11 @@
 phonecat_webapi
 ===============
 
-A simple angularjs application example based on Phonecat tutorial from angularjs.org (http://docs.angularjs.org/tutorial) The differences with the original is :
+This project is playground to learn angular js, express js and node js also interactions with other components such as DB (couch), angular modules ..etc. It's a simple angularjs application example based on Phonecat tutorial from angularjs.org (http://docs.angularjs.org/tutorial) The differences with the original is :
 
 - it adds a CouchDB persistence layer backed with an express.js Web API that supports CRUD operations
-- provide the ability to edit and save phones just clicking the properties
-- further improvements to come like drag and drop adding images, adding new phones, and more
+- it provides the ability to edit and save the phones just clicking the properties
+- you can also add new phone images simply drag and dropping them
 
 To run it you need
 ------------------

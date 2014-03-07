@@ -2,7 +2,7 @@
 
 /* App Module */
 
-angular.module('phonecat', ['phonecatFilters', 'phonecatServices', 'phonecatDirectives'])
+angular.module('phonecat', ['phonecatFilters', 'phonecatServices', 'phonecatDirectives', 'angularFileUpload'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when('/phones', {templateUrl: 'partials/phone-list.html',   controller: PhoneListCtrl}).

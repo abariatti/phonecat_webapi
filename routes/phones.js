@@ -2,6 +2,7 @@ var cradle = require('cradle');
 var c = new(cradle.Connection);
 var db = c.database('phones');
 var fs = require('fs');
+var config = require('./config.js');
 
 db.exists(function (err, exists) {
     if (err) {
@@ -22,7 +23,7 @@ exports.imageUpload = function(req,res)
     console.log(JSON.stringify(req.files));
 
     var image = req.files.file;
-    var moveTo = 'C:\\Users\\arnaud.bariatti\\Google Drive\\Code Library\\github\\phonecat_webapi\\app\\img\\phones\\' + image.name;
+    var moveTo = config.phoneImagesPath + image.name;
     fs.rename(
         image.path,
         moveTo,
@@ -36,7 +37,7 @@ exports.imageUpload = function(req,res)
             res.send({ path: moveTo });
         }
     );
-}
+};
  
 exports.findById = function(req, res) {
     var id = req.params.id;

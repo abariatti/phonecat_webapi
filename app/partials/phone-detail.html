@@ -16,6 +16,14 @@
     <li ng-repeat="img in phone.images">
       <img ng-src="{{img}}" ng-click="setImage(img)">
     </li>
+    <li class="image-upload" >
+      <div>
+        <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
+        ng-show="dropSupported">drop images here</div>
+        <div ng-file-drop-available="dropSupported=true" 
+        ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
+      </div>
+    </li>
   </ul>
   <ul class="specs">
     <li>
