@@ -33,9 +33,5 @@ app.post('/phones', phone.savePhone); // adding
 app.post('/phones/:id', phone.updatePhone); // updating 
 app.delete('/phones/:id', phone.deletePhone);
 
-
-
-
-
 app.listen(3000);
 console.log('Listening on port 3000...');
